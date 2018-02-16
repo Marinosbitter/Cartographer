@@ -15,11 +15,14 @@ function previewFile(){
         preview.src = "";
     }
     
-    mapImage = preview.src;
+    canvasObjs.background.src = preview.src;
 }
 
 //=============== Canvas functions ===============//
 //Code for keeping track of objects
+var canvasObjs = {
+    "background": {"src": mapImage}
+};
 //Code for keeping track of canvas state
 //Code for mouse events
 //Code for drawing the objects as they are made and move around
@@ -33,5 +36,5 @@ function launcPlayerMap(){
 }
 function updatePlayerMap(){
     // Example of sending of a very simple message
-    bc.postMessage('This is a test message.');
+    bc.postMessage(canvasObjs);
 }
