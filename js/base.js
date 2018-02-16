@@ -23,3 +23,15 @@ function previewFile(){
 //Code for keeping track of canvas state
 //Code for mouse events
 //Code for drawing the objects as they are made and move around
+
+//========== Tab Sync ==========//
+// Connection to a broadcast channel
+var bc = new BroadcastChannel('cartographer');
+// Player map
+function launcPlayerMap(){
+    window.open('/player_map.html','_blank');
+}
+function updatePlayerMap(){
+    // Example of sending of a very simple message
+    bc.postMessage('This is a test message.');
+}
