@@ -32,7 +32,7 @@ var canvasObjs = {
 var bc = new BroadcastChannel('cartographer');
 // Player map
 function launcPlayerMap(){
-    window.open('/player_map.html','_blank');
+    window.open('player_map.html','_blank');
 }
 function updatePlayerMap(){
     // Example of sending of a very simple message
