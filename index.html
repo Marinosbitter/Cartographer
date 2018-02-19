@@ -36,9 +36,26 @@
         </menu>
         <menu id="rightMenu">
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about/">About us</a></li>
-                <li><a href="/contact/">Contact</a></li>
+                <li>
+                    <a>Set up map</a>
+                    <ul>
+                        <li>
+                            <button type="button" class="btn btn-link" onclick="">Load map image</button>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Player map functions</a>
+                    <ul>
+                        <li>
+                            <button type="button" class="btn btn-link" onclick="launcPlayerMap()">Player Map <i class="fas fa-external-link-alt"></i></button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-link" onclick="updatePlayerMap()">Update Player Map <i class="fas fa-sync"></i></button>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </menu>
         <script
