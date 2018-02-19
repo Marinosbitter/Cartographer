@@ -5,59 +5,48 @@
         <title>title</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="/css/jquery.mmenu.all.css">
         <link href="css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="page-content">
-            <div class="row no-gutters">
-                <div class="col">
-                    <canvas id="canvas">
-                        This text is displayed if your browser does not support HTML5 Canvas.
-                        To use this tool please update to a newer browser.
-                    </canvas>
-                </div>
-                <div class="col col-md-auto">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#addImageModal">
-                        Add/change map
-                    </button>                    
-                    <button type="button" class="btn btn-outline-primary btn-block" onclick="launcPlayerMap()">Player Map <i class="fas fa-external-link-alt"></i></button>
-                    <button type="button" class="btn btn-outline-primary btn-block" onclick="updatePlayerMap()">Update Player Map <i class="fas fa-sync"></i></button>
-                </div>
-            </div>
-        </div>
-        <!-- Uploading Map -->
-        <div class="modal fade" id="addImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addImageModalLabel">Add map</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        <section id="page-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <a href="#leftMenu" class="btn btn-outline-primary float-left">DM Tools</a>
+                        <a href="#rightMenu" class="btn btn-outline-primary float-right">App settings</a>
                     </div>
-                    <div class="modal-body">
-
-                        <!-- Upload map image -->
-                        <input type="file" id="map_image_upload" name="file_map_image" />
-                        <!-- Drop area for the map -->
-                        <div id="map_image_drop_zone">Drop map image here</div>
-                        
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <canvas id="canvas">
+                            This text is displayed if your browser does not support HTML5 Canvas.
+                            To use this tool please update to a newer browser.
+                        </canvas>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>        
+        <menu id="leftMenu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About us</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </menu>
+        <menu id="rightMenu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About us</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </menu>
         <script
                 src="https://code.jquery.com/jquery-3.3.1.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="/js/jquery.mmenu.all.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 

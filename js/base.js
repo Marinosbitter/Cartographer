@@ -1,40 +1,60 @@
-var mapImage = "";
 var canvasObjs = {};
-
-// Event listeners
-var dropZone = document.getElementById('map_image_drop_zone');
-dropZone.addEventListener('dragover', handleDragOver, false);
-dropZone.addEventListener('drop', handleFileSelect, false);
+//========== Basic page JS ==========//
+$(document).ready(function() {
+    // DM Menu
+    $("#leftMenu").mmenu({
+        "extensions": [
+            "fx-panels-zoom",
+            "pagedim-black"
+        ],
+        "navbars": [
+            {
+                "position": "top",
+                "content": [
+                    "searchfield"
+                ]
+            }
+        ]
+    },{
+        "offCanvas": {
+            "pageNodetype": "section",
+            "pageSelector": "#page-content"
+        }
+    });
+    $("#rightMenu").mmenu({
+        "extensions": [
+            "fx-panels-zoom",
+            "pagedim-black",
+            "position-right"
+        ],
+        "navbars": [
+            {
+                "position": "top",
+                "content": [
+                    "searchfield"
+                ]
+            }
+        ]
+    },{
+        "offCanvas": {
+            "pageNodetype": "section",
+            "pageSelector": "#page-content"
+        }
+    });
+});
 
 //========== Uploading a map image ==========/
-function handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
 
-    var files = evt.dataTransfer.files; // FileList object.
-
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-        output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                    f.size, ' bytes, last modified: ',
-                    f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                    '</li>');
-    }
-    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-}
-
-function handleDragOver(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-}
 
 //=============== Canvas functions ===============//
 //Code for keeping track of objects
 canvasObjs = {
-    "background": {"src": mapImage}
+    "mapSettings":{},
+    "paintObjects":{
+        "mapImage": {"src": "../images/lmop4.jpg"}
+    }
 };
+
 //Code for keeping track of canvas state
 //Code for mouse events
 //Code for drawing the objects as they are made and move around
@@ -42,7 +62,7 @@ var canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
 
 // resize the canvas to fill browser window dynamically
-window.addEventListener('resize', resizeCanvas, false);
+//window.addEventListener('resize', resizeCanvas, false);
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -60,7 +80,11 @@ function drawStuff() {
     var ctx = c.getContext("2d");
 
     // Paint map image
-    //    ctx.drawImage(mapImage, canvas.width / 2 - image.width / 2, canvas.height / 2 - image.height / 2 );
+    var mapImage = new Image;
+    mapImage.src = canvasObjs.paintObjects.mapImage.src;
+    mapImage.onload = function(){
+        ctx.drawImage(mapImage, 0, 0);
+    }
 }
 
 //========== Tab Sync ==========//
