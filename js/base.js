@@ -1,27 +1,38 @@
 var mapImage = "";
+var canvasObjs = {};
 
-function previewFile(){
-    var preview = document.querySelector('img'); //selects the query named img
-    var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-    var reader  = new FileReader();
+// Event listeners
+var dropZone = document.getElementById('map_image_drop_zone');
+dropZone.addEventListener('dragover', handleDragOver, false);
+dropZone.addEventListener('drop', handleFileSelect, false);
 
-    reader.onloadend = function () {
-        preview.src = reader.result;
+//========== Uploading a map image ==========/
+function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    var files = evt.dataTransfer.files; // FileList object.
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+        output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                    f.size, ' bytes, last modified: ',
+                    f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                    '</li>');
     }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+}
 
-    if (file) {
-        reader.readAsDataURL(file); //reads the data as a URL
-    } else {
-        preview.src = "";
-    }
-
-//    canvasObjs.background.src = preview.src;
-    mapImage = preview.src;
+function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
 //=============== Canvas functions ===============//
 //Code for keeping track of objects
-var canvasObjs = {
+canvasObjs = {
     "background": {"src": mapImage}
 };
 //Code for keeping track of canvas state
@@ -47,9 +58,9 @@ resizeCanvas();
 function drawStuff() {
     var c = document.getElementById("canvas");
     var ctx = c.getContext("2d");
-    
+
     // Paint map image
-    ctx.drawImage(mapImage, canvas.width / 2 - image.width / 2, canvas.height / 2 - image.height / 2 );
+    //    ctx.drawImage(mapImage, canvas.width / 2 - image.width / 2, canvas.height / 2 - image.height / 2 );
 }
 
 //========== Tab Sync ==========//
