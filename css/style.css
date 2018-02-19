@@ -1,8 +1,15 @@
 #page-content {
     height: 100vh;
 }
-#canvasContainer {
+#mapContainer {
     max-width: 100vw;
     max-height: 100vh;
 /*    overflow:auto;*/
+}
+
+#svgMap {
+/*    background-image: url('/images/lmop4.jpg');*/
+}
+#mapBase {
+    
 }
