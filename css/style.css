@@ -1,0 +1,8 @@
+#page-content {
+    height: 100vh;
+}
+#canvasContainer {
+    max-width: 100vw;
+    max-height: 100vh;
+/*    overflow:auto;*/
+}
