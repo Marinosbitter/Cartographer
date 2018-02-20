@@ -5,4 +5,5 @@ var bc = new BroadcastChannel('cartographer');
 // logs the event to the console
 bc.onmessage = function (ev) { 
     console.log(ev); 
+    $('#mapContainer').html($.parseHTML(ev.data));
 }
