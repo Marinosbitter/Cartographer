@@ -44,7 +44,26 @@ $(document).ready(function() {
     });
 });
 
-//========== Uploading a map image ==========/
+//========== Map settings ==========//
+$('#mapImageSetting').change(function(){
+    var input = this;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#mapImagePatt image').attr("xlink:href", e.target.result);
+            console.info($('#mapImagePatt image').width());
+//            $('#svgMap').attr('viewBox', '0,0,' + 1920 + ',' + 1338);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }    
+});
+$('#gridSizeXSetting').change(function(){
+    $('#mapGridPatt').attr('width', $('#gridSizeXSetting').val());
+});
+$('#gridSizeYSetting').change(function(){
+    $('#mapGridPatt').attr('height', $('#gridSizeYSetting').val());
+});
 
 
 //=============== Canvas functions ===============//
@@ -52,7 +71,8 @@ $(document).ready(function() {
 canvasObjs = {
     "mapSettings":{
         "grid":{
-            "size":64,
+            "sizeX":64,
+            "sizeY":64,
             "offsetX":0,
             "offsetY":0,
             "color":"#000000"

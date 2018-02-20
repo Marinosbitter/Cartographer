@@ -17,46 +17,70 @@
                         <a href="#rightMenu" class="btn btn-outline-primary float-right">App settings</a>
                     </div>
                 </div>
-            </div>
-            <div id="mapContainer">
-                <!-- This is the magic -->
-                <svg id="svgMap">
-                    <defs>
-                        <pattern id="mapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
-                            <image xlink:href="" x="0" y="0" width="100%" height="100%" />
-                        </pattern>
-                        <pattern id="mapGridPatt" patternUnits="userSpaceOnUse" width="64" height="64">
-                            <rect width="100%" height="100%" style="fill:rgba(0,0,0,0);stroke-width:3;stroke:rgb(0,0,0)" />
-                        </pattern>
-                    </defs>
+                <div class="row">
+                    <div class="col">
+                        <div id="mapContainer">
+                            <!-- This is the magic -->
+                            <svg id="svgMap">
+                                <defs>
+                                    <pattern id="mapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                                        <image xlink:href="" x="0" y="0" width="100%" height="100%" />
+                                    </pattern>
+                                    <pattern id="mapGridPatt" patternUnits="userSpaceOnUse" width="64" height="64">
+                                        <rect width="100%" height="100%" style="fill:rgba(0,0,0,0);stroke-width:3;stroke:rgb(0,0,0)" />
+                                    </pattern>
+                                </defs>
 
-                    <rect id="mapBase" fill="url(#mapImagePatt)" width="100%" height="100%"/>
-                    <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
-                </svg>
-            </div>
-
-            <!-- Settings Modals -->
-            <!-- Grid settings -->
-            <div class="modal fade" id="gridSettingsModal" tabindex="-1" role="dialog" aria-labelledby="gridSettingsModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="gridSettingsModal">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <rect id="mapBase" fill="url(#mapImagePatt)" width="100%" height="100%"/>
+                                <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <button class="btn btn-primary" data-toggle="collapse" data-target="#mapSettings" aria-expanded="true" aria-controls="mapSettings">
+                                Map settings
+                            </button>
+                            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#gridSettings" aria-expanded="false" aria-controls="gridSettings">
+                                Grid settings
                             </button>
                         </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                        <div class="row">
+                            <div classs="col">
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div id="mapSettings" class="collapse show" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="mapImageSetting">Set map image</label>
+                                                    <input type="file" class="form-control-file" id="mapImageSetting">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="gridSizeXSetting">Grid size (Horizontal)</label>
+                                                    <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="Size in px">
+                                                    <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter size (in px) for horizontal grid size</small>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="gridSizeYSetting">Grid size (Vertical)</label>
+                                                    <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="Size in px">
+                                                    <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter size (in px) for vertical grid size</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div id="gridSettings" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>        
         <menu id="leftMenu">
             <ul>
@@ -67,31 +91,6 @@
         </menu>
         <menu id="rightMenu">
             <ul>
-                <li>
-                    <a>Set up map</a>
-                    <ul>
-                        <li>
-                            <button type="button" class="btn btn-link" onclick="">Load map image</button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gridSettingsModal" onclick="closeAllPanels()">
-                                Launch demo modal
-                            </button>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a>Player map functions</a>
-                    <ul>
-                        <li>
-                            <button type="button" class="btn btn-link" onclick="launcPlayerMap()">Player Map <i class="fas fa-external-link-alt"></i></button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-link" onclick="updatePlayerMap()">Update Player Map <i class="fas fa-sync"></i></button>
-                        </li>
-                    </ul>
-                </li>
-
             </ul>
         </menu>
         <script
