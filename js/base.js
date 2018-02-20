@@ -1,5 +1,4 @@
 var canvasObjs = {};
-var mapImage;
 //========== Basic page JS ==========//
 $(document).ready(function() {
     // DM Menu
@@ -45,43 +44,46 @@ $(document).ready(function() {
 });
 
 //========== Map settings ==========//
+// Upload new map image
 $('#mapImageSetting').change(function(){
     var input = this;
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
         reader.onload = function (e) {
-            $('#mapImagePatt image').attr("xlink:href", e.target.result);
-            console.info($('#mapImagePatt image').width());
-//            $('#svgMap').attr('viewBox', '0,0,' + 1920 + ',' + 1338);
+            var mapImage = new Image(); 
+            mapImage.onload = function(){
+                $('#mapImagePatt image').attr("xlink:href", mapImage.src);
+                $('#svgMap').attr('viewBox', '0,0,' + mapImage.width + ',' + mapImage.height);
+                setGridSizeX();
+                setGridSizeY();
+            };
+            mapImage.src = e.target.result; 
         }
         reader.readAsDataURL(input.files[0]);
     }    
 });
 $('#gridSizeXSetting').change(function(){
-    $('#mapGridPatt').attr('width', $('#gridSizeXSetting').val());
+    setGridSizeX();
 });
 $('#gridSizeYSetting').change(function(){
-    $('#mapGridPatt').attr('height', $('#gridSizeYSetting').val());
+    setGridSizeY();
 });
-
-
-//=============== Canvas functions ===============//
-//Code for keeping track of objects
-canvasObjs = {
-    "mapSettings":{
-        "grid":{
-            "sizeX":64,
-            "sizeY":64,
-            "offsetX":0,
-            "offsetY":0,
-            "color":"#000000"
-        }
-    },
-    "paintObjects":{
-        "mapImage": {"src": "../images/lmop4.jpg"}
-    }
-};
+// Adjust Grid X
+function setGridSizeX(){
+    var gridSizeX = $('#gridSizeXSetting').val();
+    if(gridSizeX < 1){gridSizeX = 1;}
+    var viewBoxSize = $('#svgMap').attr('viewBox');
+    viewBoxSize = viewBoxSize.split(",");
+    $('#mapGridPatt').attr('width', viewBoxSize[2] / gridSizeX);
+}
+// Adjust Grid Y
+function setGridSizeY(){
+    var gridSizeY = $('#gridSizeYSetting').val();
+    if(gridSizeY < 1){gridSizeY = 1;}
+    var viewBoxSize = $('#svgMap').attr('viewBox');
+    viewBoxSize = viewBoxSize.split(",");
+    $('#mapGridPatt').attr('height', viewBoxSize[3] / gridSizeY);
+}
 //========== SVG Functions ==========//
 $('#svgMap').attr('viewBox', '0,0,' + 1920 + ',' + 1338);
 $('#mapImagePatt image').attr("xlink:href", "/images/lmop4.jpg");
