@@ -44,7 +44,6 @@ $(document).ready(function() {
 });
 
 //========== Map settings ==========//
-// Upload new map image
 $('#mapImageSetting').change(function(){
     var input = this;
     if (input.files && input.files[0]) {
@@ -61,35 +60,33 @@ $('#mapImageSetting').change(function(){
         }
         reader.readAsDataURL(input.files[0]);
     }    
-});
+});// Upload new map image
 $('#gridSizeXSetting').change(function(){
     setGridSizeX();
 });
 $('#gridSizeYSetting').change(function(){
     setGridSizeY();
 });
-// Adjust Grid X
+$('input[name=fogOfWarSetting]').change(function(){
+    setFogOfWar();
+});
 function setGridSizeX(){
     var gridSizeX = $('#gridSizeXSetting').val();
     if(gridSizeX < 1){gridSizeX = 1;}
     var viewBoxSize = $('#svgMap').attr('viewBox');
     viewBoxSize = viewBoxSize.split(",");
     $('#mapGridPatt').attr('width', viewBoxSize[2] / gridSizeX);
-}
-// Adjust Grid Y
+}// Adjust Grid X
 function setGridSizeY(){
     var gridSizeY = $('#gridSizeYSetting').val();
     if(gridSizeY < 1){gridSizeY = 1;}
     var viewBoxSize = $('#svgMap').attr('viewBox');
     viewBoxSize = viewBoxSize.split(",");
     $('#mapGridPatt').attr('height', viewBoxSize[3] / gridSizeY);
-}
-//========== SVG Functions ==========//
-//$('#svgMap').attr('viewBox', '0,0,' + 1920 + ',' + 1338);
-//$('#mapImagePatt image').attr("xlink:href", "/images/lmop4.jpg");
-
-// Set map background
-
+}// Adjust Grid Y
+function setFogOfWar(){
+    console.info($('input[name=fogOfWarSetting]:checked').val());
+}// Set fog of war
 
 //========== Tab Sync ==========//
 // Connection to a broadcast channel
@@ -97,21 +94,19 @@ var bc = new BroadcastChannel('cartographer');
 // Player map
 function launcPlayerMap(){
     window.open('player_map.html','_blank');
-}
+}// Launch player map in new tab
 function updatePlayerMap(){
     // Example of sending of a very simple message
     bc.postMessage($('#mapContainer').html());
-}
+}// Update external player maps
 var targetNodes         = $("#svgMap");
 var MutationObserver    = window.MutationObserver || window.WebKitMutationObserver;
 var myObserver          = new MutationObserver (mutationHandler);
 var obsConfig           = { childList: true, characterData: true, attributes: true, subtree: true };
-
 //--- Add a target node to the observer. Can only add one node at a time.
 targetNodes.each ( function () {
     myObserver.observe (this, obsConfig);
 } );
-
 function mutationHandler (mutationRecords) {
 //    console.info ("mutationHandler:");
 
