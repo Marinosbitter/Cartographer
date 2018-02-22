@@ -1,3 +1,15 @@
-#gmap {
+#page-content {
     height: 100vh;
+}
+#mapContainer {
+    max-width: 100vw;
+    max-height: 100vh;
+/*    overflow:auto;*/
+}
+
+#svgMap {
+/*    background-image: url('/images/lmop4.jpg');*/
+}
+#mapBase {
+    
 }

@@ -1,54 +1,125 @@
-function initMap() {
-    var map = new google.maps.Map(document.getElementById('gmap'), {
-        center: {lat: 0, lng: 0},
-        zoom: 1,
-        streetViewControl: false,
-        mapTypeControlOptions: {
-            mapTypeIds: ['moon']
+var canvasObjs = {};
+//========== Basic page JS ==========//
+$(document).ready(function() {
+    // DM Menu
+    $("#leftMenu").mmenu({
+        "extensions": [
+            "fx-panels-zoom",
+            "pagedim-black"
+        ],
+        "navbars": [
+            {
+                "position": "top",
+                "content": [
+                    "searchfield"
+                ]
+            }
+        ]
+    },{
+        "offCanvas": {
+            "pageNodetype": "section",
+            "pageSelector": "#page-content"
         }
     });
-
-    var moonMapType = new google.maps.ImageMapType({
-        getTileUrl: function(coord, zoom) {
-            var normalizedCoord = getNormalizedCoord(coord, zoom);
-            if (!normalizedCoord) {
-                return null;
+    $("#rightMenu").mmenu({
+        "extensions": [
+            "fx-panels-zoom",
+            "pagedim-black",
+            "position-right"
+        ],
+        "navbars": [
+            {
+                "position": "top",
+                "content": [
+                    "searchfield"
+                ]
             }
-            var bound = Math.pow(2, zoom);
-            return '//via.placeholder.com' +
-                '/256x256?text=zoom+' + zoom + '|+x+' + normalizedCoord.x + '|+y+' +
-                (bound - normalizedCoord.y - 1);
-        },
-        tileSize: new google.maps.Size(256, 256),
-        maxZoom: 9,
-        minZoom: 0,
-        radius: 1738000,
-        name: 'Moon'
+        ]
+    },{
+        "offCanvas": {
+            "pageNodetype": "section",
+            "pageSelector": "#page-content"
+        }
     });
+});
 
-    map.mapTypes.set('moon', moonMapType);
-    map.setMapTypeId('moon');
-}
+//========== Map settings ==========//
+$('#mapImageSetting').change(function(){
+    var input = this;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var mapImage = new Image(); 
+            mapImage.onload = function(){
+                $('#mapImagePatt image').attr("xlink:href", mapImage.src);
+                $('#svgMap').attr('viewBox', '0,0,' + mapImage.width + ',' + mapImage.height);
+                setGridSizeX();
+                setGridSizeY();
+            };
+            mapImage.src = e.target.result; 
+        }
+        reader.readAsDataURL(input.files[0]);
+    }    
+});// Upload new map image
+$('#gridSizeXSetting').change(function(){
+    setGridSizeX();
+});
+$('#gridSizeYSetting').change(function(){
+    setGridSizeY();
+});
+$('input[name=fogOfWarSetting]').change(function(){
+    setFogOfWar();
+});
+function setGridSizeX(){
+    var gridSizeX = $('#gridSizeXSetting').val();
+    if(gridSizeX < 1){gridSizeX = 1;}
+    var viewBoxSize = $('#svgMap').attr('viewBox');
+    viewBoxSize = viewBoxSize.split(",");
+    $('#mapGridPatt').attr('width', viewBoxSize[2] / gridSizeX);
+}// Adjust Grid X
+function setGridSizeY(){
+    var gridSizeY = $('#gridSizeYSetting').val();
+    if(gridSizeY < 1){gridSizeY = 1;}
+    var viewBoxSize = $('#svgMap').attr('viewBox');
+    viewBoxSize = viewBoxSize.split(",");
+    $('#mapGridPatt').attr('height', viewBoxSize[3] / gridSizeY);
+}// Adjust Grid Y
+function setFogOfWar(){
+    console.info($('input[name=fogOfWarSetting]:checked').val());
+}// Set fog of war
 
-// Normalizes the coords that tiles repeat across the x axis (horizontally)
-// like the standard Google map tiles.
-function getNormalizedCoord(coord, zoom) {
-    var y = coord.y;
-    var x = coord.x;
+//========== Tab Sync ==========//
+// Connection to a broadcast channel
+var bc = new BroadcastChannel('cartographer');
+// Player map
+function launcPlayerMap(){
+    window.open('player_map.html','_blank');
+}// Launch player map in new tab
+function updatePlayerMap(){
+    // Example of sending of a very simple message
+    bc.postMessage($('#mapContainer').html());
+}// Update external player maps
+var targetNodes         = $("#svgMap");
+var MutationObserver    = window.MutationObserver || window.WebKitMutationObserver;
+var myObserver          = new MutationObserver (mutationHandler);
+var obsConfig           = { childList: true, characterData: true, attributes: true, subtree: true };
+//--- Add a target node to the observer. Can only add one node at a time.
+targetNodes.each ( function () {
+    myObserver.observe (this, obsConfig);
+} );
+function mutationHandler (mutationRecords) {
+//    console.info ("mutationHandler:");
 
-    // tile range in one direction range is dependent on zoom level
-    // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
-    var tileRange = 1 << zoom;
+    mutationRecords.forEach ( function (mutation) {
+//        console.log (mutation.type);
 
-    // don't repeat across y-axis (vertically)
-    if (y < 0 || y >= tileRange) {
-        return null;
-    }
-
-    // repeat across x-axis
-    if (x < 0 || x >= tileRange) {
-        x = (x % tileRange + tileRange) % tileRange;
-    }
-
-    return {x: x, y: y};
+        if (typeof mutation.removedNodes == "object") {
+            var jq = $(mutation.removedNodes);
+//            console.log (jq);
+//            console.log (jq.is("span.myclass2"));
+//            console.log (jq.find("span") );
+        }
+    } );
+    
+    updatePlayerMap();
 }

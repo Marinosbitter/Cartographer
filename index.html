@@ -5,31 +5,121 @@
         <title>title</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-        <link href="/css/style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/css/jquery.mmenu.all.css">
+        <link href="css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <div id="page-content">
-            <div class="row no-gutters">
-                <div class="col">
-                    <div id="gmap"></div>
+        <section id="page-content">
+            <div class="container-fluid" id="topNavi">
+                <div class="row">
+                    <div class="col">
+                        <a href="#leftMenu" class="btn btn-outline-primary float-left">DM Tools</a>
+                        <a href="#rightMenu" class="btn btn-outline-primary float-right">App settings</a>
+                    </div>
                 </div>
-                <div class="col col-md-auto">
-                    TOOLS COLUMN
+                <div class="row">
+                    <div class="col">
+                        <div id="mapContainer">
+                            <!-- This is the magic -->
+                            <svg id="svgMap">
+                                <defs>
+                                    <pattern id="mapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                                        <image xlink:href="" x="0" y="0" width="100%" height="100%" />
+                                    </pattern>
+                                    <pattern id="mapGridPatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                                        <rect width="100%" height="100%" fill="rgba(0,0,0,0)" stroke-width=5 stroke="rgb(0,255,255)" />
+                                    </pattern>
+                                </defs>
+
+                                <rect id="mapBase" fill="url(#mapImagePatt)" width="100%" height="100%"/>
+                                <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <button class="btn btn-primary" data-toggle="collapse" data-target="#mapSettings" aria-expanded="true" aria-controls="mapSettings">
+                                Map settings
+                            </button>
+                            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#gridSettings" aria-expanded="false" aria-controls="gridSettings">
+                                Grid settings
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div classs="col">
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div id="mapSettings" class="collapse show" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="mapImageSetting">Set map image</label>
+                                                    <input type="file" class="form-control-file" id="mapImageSetting">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="gridSizeXSetting">Grid spaces (Horizontal)</label>
+                                                    <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="1">
+                                                    <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter horizontal number of grid spaces</small>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="gridSizeYSetting">Grid spaces (Vertical)</label>
+                                                    <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="1">
+                                                    <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter vertical nunmber of grid spaces</small>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="fogOfWarSetting" id="fogOfWarSetting1" value="option1" checked>
+                                                    <label class="form-check-label" for="fogOfWarSetting1">
+                                                        Enable fog of war
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="fogOfWarSetting" id="fogOfWarSetting2" value="option2">
+                                                    <label class="form-check-label" for="fogOfWarSetting2">
+                                                        Disable fog of war
+                                                    </label>
+                                                </div>
+                                                <div class="form-check disabled">
+                                                    <input class="form-check-input" type="radio" name="fogOfWarSetting" id="fogOfWarSetting3" value="option3" disabled>
+                                                    <label class="form-check-label" for="fogOfWarSetting3">
+                                                        TBA
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div id="gridSettings" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </section>        
+        <menu id="leftMenu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About us</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </menu>
+        <menu id="rightMenu">
+            <ul>
+            </ul>
+        </menu>
         <script
                 src="https://code.jquery.com/jquery-3.3.1.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <script src="/js/jquery.mmenu.all.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgk9vAaHWKguPKSZa8fx3a9bdb3A1eh3o&callback=initMap"
-                async defer></script>
-        <script src="/js/base.js"></script>
+        <script src="js/base.js"></script>
     </body>
 </html>
