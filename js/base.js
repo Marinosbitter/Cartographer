@@ -67,9 +67,22 @@ $('#gridSizeXSetting').change(function(){
 $('#gridSizeYSetting').change(function(){
     setGridSizeY();
 });
-$('input[name=fogOfWarSetting]').change(function(){
-    setFogOfWar();
+$('#gridColorSetting').change(function(){
+    setGridColor($('#gridColorSetting').val());
 });
+$('#gridThicknessSetting').change(function(){
+    setGridThickness($('#gridThicknessSetting').val());
+});
+$('#fogOfWarSetting').change(function(){
+    setfogOfWar($('#fogOfWarSetting').val());
+});
+$('#confirmFogOfWarSetting').click(function(){
+    confFogOfWar($('#fogOfWarSetting').val());
+});
+$('#cancelFogOfWarSetting').click(function(){
+    $('#fogOfWarSetting').val($('#mapFog').attr('data-fogmode'));
+});
+
 function setGridSizeX(){
     var gridSizeX = $('#gridSizeXSetting').val();
     if(gridSizeX < 1){gridSizeX = 1;}
@@ -84,9 +97,28 @@ function setGridSizeY(){
     viewBoxSize = viewBoxSize.split(",");
     $('#mapGridPatt').attr('height', viewBoxSize[3] / gridSizeY);
 }// Adjust Grid Y
-function setFogOfWar(){
-    console.info($('input[name=fogOfWarSetting]:checked').val());
+function setGridColor(color){
+    $('#mapGridPatt rect').attr('stroke', color);
+}// Set grid color
+function setGridThickness(thickness){
+    $('#mapGridPatt rect').attr('stroke-width', thickness);
+}// Set grid thickness
+function setfogOfWar(fogMode){
+    $('#fowWarningModal').modal();
 }// Set fog of war
+function confFogOfWar(fogMode){
+    $('#mapFog').attr('data-fogmode', fogMode);
+    switch(fogMode){
+        case "none":
+            $('#mapFog').html("");
+            break;
+        case "grid":
+            var viewBoxSize = $('#svgMap').attr('viewBox');
+            viewBoxSize = viewBoxSize.split(",");
+            console.info(viewBoxSize);
+            break;
+    }
+}// Confirm and generate fog of war
 
 //========== Tab Sync ==========//
 // Connection to a broadcast channel
@@ -108,18 +140,18 @@ targetNodes.each ( function () {
     myObserver.observe (this, obsConfig);
 } );
 function mutationHandler (mutationRecords) {
-//    console.info ("mutationHandler:");
+    //    console.info ("mutationHandler:");
 
     mutationRecords.forEach ( function (mutation) {
-//        console.log (mutation.type);
+        //        console.log (mutation.type);
 
         if (typeof mutation.removedNodes == "object") {
             var jq = $(mutation.removedNodes);
-//            console.log (jq);
-//            console.log (jq.is("span.myclass2"));
-//            console.log (jq.find("span") );
+            //            console.log (jq);
+            //            console.log (jq.is("span.myclass2"));
+            //            console.log (jq.find("span") );
         }
     } );
-    
+
     updatePlayerMap();
 }

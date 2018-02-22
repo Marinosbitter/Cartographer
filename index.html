@@ -27,10 +27,13 @@
                                         <image xlink:href="" x="0" y="0" width="100%" height="100%" />
                                     </pattern>
                                     <pattern id="mapGridPatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
-                                        <rect width="100%" height="100%" fill="rgba(0,0,0,0)" stroke-width=5 stroke="rgb(0,255,255)" />
+                                        <rect width="100%" height="100%" fill="rgba(0,0,0,0)" stroke-width=5 stroke="#000000" />
                                     </pattern>
                                 </defs>
 
+                                <g id="mapFog" data-fogmode="none">
+
+                                </g>
                                 <rect id="mapBase" fill="url(#mapImagePatt)" width="100%" height="100%"/>
                                 <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
                             </svg>
@@ -55,33 +58,53 @@
                                                     <label for="mapImageSetting">Set map image</label>
                                                     <input type="file" class="form-control-file" id="mapImageSetting">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="gridSizeXSetting">Grid spaces (Horizontal)</label>
-                                                    <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="1">
-                                                    <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter horizontal number of grid spaces</small>
+                                                <div class="form-row">
+                                                    <div class="form-group col">
+                                                        <label for="gridSizeXSetting">Grid spaces (Horizontal)</label>
+                                                        <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="1">
+                                                        <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter horizontal number of grid spaces</small>
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="gridSizeYSetting">Grid spaces (Vertical)</label>
+                                                        <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="1">
+                                                        <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter vertical nunmber of grid spaces</small>
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="gridColorSetting">Grid color</label>
+                                                        <input type="color" class="form-control" id="gridColorSetting" aria-describedby="gridColorSettingHelp" placeholder="#000000">
+                                                        <small id="gridColorSettingHelp" class="form-text text-muted">Hex color of grid</small>
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="gridThicknessSetting">Grid thickness</label>
+                                                        <input type="number" class="form-control" id="gridThicknessSetting" aria-describedby="gridThicknessSettingHelp" placeholder="5">
+                                                        <small id="gridThicknessSettingHelp" class="form-text text-muted">Thickness of grid,<i> in px on map</i></small>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="gridSizeYSetting">Grid spaces (Vertical)</label>
-                                                    <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="1">
-                                                    <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter vertical nunmber of grid spaces</small>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="fogOfWarSetting" id="fogOfWarSetting1" value="option1" checked>
-                                                    <label class="form-check-label" for="fogOfWarSetting1">
-                                                        Enable fog of war
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="fogOfWarSetting" id="fogOfWarSetting2" value="option2">
-                                                    <label class="form-check-label" for="fogOfWarSetting2">
-                                                        Disable fog of war
-                                                    </label>
-                                                </div>
-                                                <div class="form-check disabled">
-                                                    <input class="form-check-input" type="radio" name="fogOfWarSetting" id="fogOfWarSetting3" value="option3" disabled>
-                                                    <label class="form-check-label" for="fogOfWarSetting3">
-                                                        TBA
-                                                    </label>
+                                                    <label for="fogOfWarSetting">Fog of war mode</label>
+                                                    <select class="form-control" id="fogOfWarSetting">
+                                                        <option value="none">No fog of war</option>
+                                                        <option value="grid">Grid based fog of war</option>
+                                                    </select>
+                                                    <div class="modal" tabindex="-1" role="dialog" id="fowWarningModal">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Fog of war mode <b>WARNING</b></h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p>Changing fog of war (FOW) mode resets the complete fog on the map.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmFogOfWarSetting">Change mode</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelFogOfWarSetting">Cancel</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

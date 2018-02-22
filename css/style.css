@@ -6,10 +6,6 @@
     max-height: 100vh;
 /*    overflow:auto;*/
 }
-
-#svgMap {
-/*    background-image: url('/images/lmop4.jpg');*/
-}
-#mapBase {
-    
+#gridColorSetting {
+    min-height: 2.4rem;
 }
