@@ -114,8 +114,13 @@ function confFogOfWar(fogMode){
             break;
         case "grid":
             var viewBoxSize = $('#svgMap').attr('viewBox');
+            var gridX = $('#gridSizeXSetting').val();
+            var gridY = $('#gridSizeYSetting').val();
             viewBoxSize = viewBoxSize.split(",");
-            console.info(viewBoxSize);
+            console.info(viewBoxSize[2] + '  |  ' + viewBoxSize[3]);
+            for(x = 0; x < gridX; x++){
+                $('#mapFog').append('<rect width="100%" height="100%" fill="rgba(0,0,0,1)" />');
+            }
             break;
     }
 }// Confirm and generate fog of war
