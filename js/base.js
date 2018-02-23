@@ -76,6 +76,9 @@ $('#gridThicknessSetting').change(function(){
 $('#fogOfWarSetting').change(function(){
     setfogOfWar($('#fogOfWarSetting').val());
 });
+$('#fogOfWarRegenSetting').click(function(){
+    setfogOfWar($('#fogOfWarSetting').val());
+});
 $('#confirmFogOfWarSetting').click(function(){
     confFogOfWar($('#fogOfWarSetting').val());
 });
@@ -119,7 +122,10 @@ function confFogOfWar(fogMode){
             viewBoxSize = viewBoxSize.split(",");
             console.info(viewBoxSize[2] + '  |  ' + viewBoxSize[3]);
             for(x = 0; x < gridX; x++){
-                $('#mapFog').append('<rect width="100%" height="100%" fill="rgba(0,0,0,1)" />');
+                for(y = 0; y < gridY; y++)
+                {
+                    $('#mapFog').append('<rect width="100%" height="100%" fill="rgba(0,0,0,1)" />');
+                }
             }
             break;
     }

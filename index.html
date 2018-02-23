@@ -80,12 +80,18 @@
                                                         <small id="gridThicknessSettingHelp" class="form-text text-muted">Thickness of grid,<i> in px on map</i></small>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="fogOfWarSetting">Fog of war mode</label>
-                                                    <select class="form-control" id="fogOfWarSetting">
-                                                        <option value="none">No fog of war</option>
-                                                        <option value="grid">Grid based fog of war</option>
-                                                    </select>
+                                                <div class="form-row">
+                                                    <div class="form-group col">
+                                                        <label for="fogOfWarSetting">Fog of war mode</label>
+                                                        <select class="form-control" id="fogOfWarSetting">
+                                                            <option value="none">No fog of war</option>
+                                                            <option value="grid">Grid based fog of war</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-groep col">
+                                                        <label for="fogOfWarRegenSetting">Fog of war mode</label><br>
+                                                        <input type="button" class="btn btn-primary" id="fogOfWarRegenSetting" value="Regenerate fog of war">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,10 +132,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Changing fog of war (FOW) mode resets the complete fog on the map.</p>
+                        <p>Changing fog of war (FOW) mode or regenerating the FOW resets the complete fog on the map.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmFogOfWarSetting">Change mode</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmFogOfWarSetting">Continue</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelFogOfWarSetting">Cancel</button>
                     </div>
                 </div>
