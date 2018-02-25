@@ -120,11 +120,21 @@ function confFogOfWar(fogMode){
             var gridX = $('#gridSizeXSetting').val();
             var gridY = $('#gridSizeYSetting').val();
             viewBoxSize = viewBoxSize.split(",");
-            console.info(viewBoxSize[2] + '  |  ' + viewBoxSize[3]);
+            var viewBoxSizeX = viewBoxSize[2]
+            var viewBoxSizeY = viewBoxSize[3]
             for(x = 0; x < gridX; x++){
                 for(y = 0; y < gridY; y++)
                 {
-                    $('#mapFog').append('<rect width="100%" height="100%" fill="rgba(0,0,0,1)" />');
+                    var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'path'); //Create a path in SVG's namespace
+                    $(newElement).attr('d','M0 0 l100 0 l0 100 l-100 0 Z'); //Set path's data
+                    var d = 'M'+ parseFloat(x * viewBoxSizeX / gridX) + ' ' + parseFloat(y * viewBoxSizeY / gridY) +
+                        ' l'+parseFloat(viewBoxSizeX / gridX)+' 0 l0 '+parseFloat(viewBoxSizeY / gridY)+' l-'+parseFloat(viewBoxSizeX / gridX)+' 0 z';
+                    console.info(d);
+                    $(newElement).attr('d', d); //Set path's data
+                    $(newElement).attr('stroke-width', 5); //Set stroke
+                    $(newElement).attr('stroke', '#00ff00'); //Set stroke color
+                    $(newElement).attr('fill', 'rgba(0,0,0,0.5)'); //Set fill
+                    $('#mapFog').append(newElement);
                 }
             }
             break;
