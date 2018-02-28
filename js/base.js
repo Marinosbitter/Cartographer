@@ -55,7 +55,7 @@ $('#mapImageSetting').change(function(){
                 $('#svgMap').attr('viewBox', '0,0,' + mapImage.width + ',' + mapImage.height);
                 setGridSizeX();
                 setGridSizeY();
-                setFogOfWar();
+                setFogOfWar(mapImage.width, mapImage.height);
             };
             mapImage.src = e.target.result; 
         }
@@ -74,7 +74,6 @@ $('#gridColorSetting').change(function(){
 $('#gridThicknessSetting').change(function(){
     setGridThickness($('#gridThicknessSetting').val());
 });
-
 
 function setGridSizeX(){
     var gridSizeX = $('#gridSizeXSetting').val();
@@ -96,6 +95,18 @@ function setGridColor(color){
 function setGridThickness(thickness){
     $('#mapGridPatt rect').attr('stroke-width', thickness);
 }// Set grid thickness
+function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
+    var c = document.getElementById('fogCanvas');
+    $(c).width(fogCanvasWidth);
+    $(c).width(fogCanvasHeight);
+    var ctx = c.getContext('2d');
+
+    ctx.beginPath();
+    ctx.rect(0, 0, fogCanvasWidth, fogCanvasHeight);
+    ctx.fillStyle = "red";
+    ctx.fill();
+
+}// Set fog of war
 
 //========== Tab Sync ==========//
 // Connection to a broadcast channel
