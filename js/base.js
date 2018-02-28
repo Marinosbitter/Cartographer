@@ -97,14 +97,10 @@ function setGridThickness(thickness){
 }// Set grid thickness
 function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
     var c = document.getElementById('fogCanvas');
-    $(c).width(fogCanvasWidth);
-    $(c).width(fogCanvasHeight);
     var ctx = c.getContext('2d');
-
-    ctx.beginPath();
-    ctx.rect(0, 0, fogCanvasWidth, fogCanvasHeight);
-    ctx.fillStyle = "red";
-    ctx.fill();
+    $(c).width(fogCanvasWidth);
+    $(c).height(fogCanvasHeight);
+    ctx.fillRect(10,10,fogCanvasWidth,fogCanvasHeight);
 
 }// Set fog of war
 
