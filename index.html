@@ -4,19 +4,15 @@
         <meta charset="utf-8">
         <title>title</title>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/jquery.mmenu.all.css">
+        <!-- Bootstrap core CSS -->
+        <link href="frameworks/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="frameworks/bootstrap/css/mdb.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <section id="page-content">
-            <div class="container-fluid" id="topNavi">
-                <div class="row">
-                    <div class="col">
-                        <a href="#leftMenu" class="btn btn-outline-primary float-left">DM Tools</a>
-                        <a href="#rightMenu" class="btn btn-outline-primary float-right">App settings</a>
-                    </div>
-                </div>
+            <div class="container">
                 <div class="row">
                     <div class="col">
                         <div id="mapContainer">
@@ -45,7 +41,7 @@
                                 <rect id="playerMap" fill="url(#playerMapImagePatt)" width="100%" height="100%"/>
                                 <rect id="dmMap" fill="url(#dmMapImagePatt)" width="100%" height="100%" mask="url(#dmMask)"/>
                                 <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
-<!--                                <rect id="fogOfWar" fill="#00ff00" width=100% height=100% mask="url(#fogMask)"/>-->
+                                <!--                                <rect id="fogOfWar" fill="#00ff00" width=100% height=100% mask="url(#fogMask)"/>-->
                             </svg>
                             <canvas id="dmCanvas"></canvas>
                             <canvas id="fogCanvas"></canvas>
@@ -53,78 +49,88 @@
                     </div>
                     <div class="col">
                         <div class="row">
-                            <button class="btn btn-primary" data-toggle="collapse" data-target="#mapSetup" aria-expanded="true" aria-controls="mapSetup">
-                                Map Setup
-                            </button>
-                            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#playMode" aria-expanded="false" aria-controls="playMode">
-                                Playing
-                            </button>
+                            <div class="col">
+                                <!--Card-->
+                                <div class="card card-cascade">
+                                    <!--Card image-->
+                                    <div class="view gradient-card-header blue-gradient">
+                                        <h2 class="h2-responsive">Map</h2>
+                                        <p>Setup</p>
+                                    </div>
+                                    <!--/Card image-->
+                                    <!--Card content-->
+                                    <div class="card-body text-center">
+                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, ex, recusandae. Facere modi
+                                            sunt, quod quibusdam dignissimos neque rem nihil ratione est placeat vel, natus non quos laudantium
+                                            veritatis sequi.Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+                                            laboriosam.</p>
+                                    </div>
+                                    <!--/.Card content-->
+                                </div>
+                                <!--/.Card-->
+                            </div>
                         </div>
-                        <div class="row">
-                            <div classs="col">
-                                <div id="accordion">
-                                    <div class="card">
-                                        <div id="mapSetup" class="collapse show" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <label for="playerMapImageSetting">Set player map image</label>
-                                                        <input type="file" class="form-control-file" id="playerMapImageSetting">
-                                                        <p>The player map image size is used for the other images</p>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="dmMapImageSetting">Set DM map image</label>
-                                                        <input type="file" class="form-control-file" id="dmMapImageSetting">
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="fogMapImageSetting">Set fog image</label>
-                                                        <input type="file" class="form-control-file" id="fogMapImageSetting">
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <label for="gridSizeXSetting">Grid spaces (Horizontal)</label>
-                                                        <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="1">
-                                                        <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter horizontal number of grid spaces</small>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="gridSizeYSetting">Grid spaces (Vertical)</label>
-                                                        <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="1">
-                                                        <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter vertical nunmber of grid spaces</small>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="gridColorSetting">Grid color</label>
-                                                        <input type="color" class="form-control" id="gridColorSetting" aria-describedby="gridColorSettingHelp" placeholder="#000000">
-                                                        <small id="gridColorSettingHelp" class="form-text text-muted">Hex color of grid</small>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="gridThicknessSetting">Grid thickness</label>
-                                                        <input type="number" class="form-control" id="gridThicknessSetting" aria-describedby="gridThicknessSettingHelp" placeholder="5">
-                                                        <small id="gridThicknessSettingHelp" class="form-text text-muted">Thickness of grid,<i> in px on map</i></small>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <label for="fogColorSetting">Fog color</label>
-                                                        <input type="color" class="form-control" id="fogColorSetting" aria-describedby="fogColorSettingHelp" placeholder="#804000">
-                                                        <small id="fogColorSettingHelp" class="form-text text-muted">Set fog of war color</small>
-                                                    </div>
-                                                </div>
-                                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div id="mapSetup">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col">
+                                            <label for="playerMapImageSetting">Set player map image</label>
+                                            <input type="file" class="form-control-file" id="playerMapImageSetting">
+                                            <p>The player map image size is used for the other images</p>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label for="dmMapImageSetting">Set DM map image</label>
+                                            <input type="file" class="form-control-file" id="dmMapImageSetting">
+                                        </div>
+                                        <div class="form-group col">
+                                            <label for="fogMapImageSetting">Set fog image</label>
+                                            <input type="file" class="form-control-file" id="fogMapImageSetting">
                                         </div>
                                     </div>
-                                    <div class="card">
-                                        <div id="playMode" class="collapse" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <h2>Controls</h2>
-                                                <div class="btn-group" role="group" aria-label="modeSettingLabel" id="modeSetting">
-                                                    <button type="button" class="btn btn-secondary">Add fog</button>
-                                                    <button type="button" class="btn btn-secondary">Substract fog</button>
-                                                    <button type="button" class="btn btn-secondary">Right</button>
-                                                </div>
-                                            </div>
+                                    <div class="form-row">
+                                        <div class="form-group col">
+                                            <label for="gridSizeXSetting">Grid spaces (Horizontal)</label>
+                                            <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="1">
+                                            <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter horizontal number of grid spaces</small>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label for="gridSizeYSetting">Grid spaces (Vertical)</label>
+                                            <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="1">
+                                            <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter vertical nunmber of grid spaces</small>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label for="gridColorSetting">Grid color</label>
+                                            <input type="color" class="form-control" id="gridColorSetting" aria-describedby="gridColorSettingHelp" placeholder="#000000">
+                                            <small id="gridColorSettingHelp" class="form-text text-muted">Hex color of grid</small>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label for="gridThicknessSetting">Grid thickness</label>
+                                            <input type="number" class="form-control" id="gridThicknessSetting" aria-describedby="gridThicknessSettingHelp" placeholder="5">
+                                            <small id="gridThicknessSettingHelp" class="form-text text-muted">Thickness of grid,<i> in px on map</i></small>
                                         </div>
                                     </div>
+                                    <div class="form-row">
+                                        <div class="form-group col">
+                                            <label for="fogColorSetting">Fog color</label>
+                                            <input type="color" class="form-control" id="fogColorSetting" aria-describedby="fogColorSettingHelp" placeholder="#804000">
+                                            <small id="fogColorSettingHelp" class="form-text text-muted">Set fog of war color</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h2>Controls</h2>
+                                <div class="btn-group" role="group" aria-label="modeSettingLabel" id="modeSetting">
+                                    <button type="button" class="btn btn-secondary">Add fog</button>
+                                    <button type="button" class="btn btn-secondary">Substract fog</button>
+                                    <button type="button" class="btn btn-secondary">Right</button>
                                 </div>
                             </div>
                         </div>
@@ -132,17 +138,7 @@
                 </div>
             </div>
         </section>     
-        <menu id="leftMenu">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about/">About us</a></li>
-                <li><a href="/contact/">Contact</a></li>
-            </ul>
-        </menu>
-        <menu id="rightMenu">
-            <ul>
-            </ul>
-        </menu>
+
         <!--- Modals --->
         <div class="modal" tabindex="-1" role="dialog" id="fowWarningModal">
             <div class="modal-dialog" role="document">
@@ -168,10 +164,12 @@
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-        <script src="js/jquery.mmenu.all.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="frameworks/bootstrap/js/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="frameworks/bootstrap/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="frameworks/bootstrap/js/mdb.min.js"></script>
         <script src="js/base.js"></script>
     </body>
 </html>
