@@ -98,9 +98,18 @@ function setGridThickness(thickness){
 function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
     var c = document.getElementById('fogCanvas');
     var ctx = c.getContext('2d');
-    $(c).width(fogCanvasWidth);
-    $(c).height(fogCanvasHeight);
-    ctx.fillRect(10,10,fogCanvasWidth,fogCanvasHeight);
+    $(c).attr('width', fogCanvasWidth);
+    $(c).attr('height', fogCanvasHeight);
+
+    var my_gradient=ctx.createLinearGradient(0,0,0,fogCanvasHeight);
+    my_gradient.addColorStop(0,"black");
+    my_gradient.addColorStop(1,"white");
+    ctx.fillStyle=my_gradient;
+    ctx.fillRect(0,0,fogCanvasWidth,fogCanvasHeight);
+
+    //Save canvas as image for use in mask
+    var fogImage = c.toDataURL("image/png");
+    $('#fogMask image').attr("xlink:href", fogImage);
 
 }// Set fog of war
 
