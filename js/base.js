@@ -86,6 +86,9 @@ function loadImage(mapTypeSetting){
                     case "dmMapImageSetting":
                         $('#dmMapImagePatt image').attr("xlink:href", loadedImage.src);
                         break;
+                    case "fogMapImageSetting":
+                        $('#fogMapImagePatt image').attr("xlink:href", loadedImage.src);
+                        break;
                 }
             };
             loadedImage.src = e.target.result; 
