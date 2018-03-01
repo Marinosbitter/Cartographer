@@ -23,7 +23,8 @@
                             <!-- This is the magic -->
                             <svg id="svgMap">
                                 <defs>
-                                    <pattern id="mapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                                    <pattern id="playerMapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
+                                    <pattern id="dmMapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
                                         <image xlink:href="" x="0" y="0" width="100%" height="100%" />
                                     </pattern>
                                     <pattern id="mapGridPatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
@@ -33,7 +34,8 @@
                                         <image xlink:href="" x="0" y="0" width="100%" height="100%" />                                        
                                     </mask>
                                 </defs>
-                                <rect id="mapBase" fill="url(#mapImagePatt)" width="100%" height="100%"/>
+                                <rect id="playerMap" fill="url(#playerMapImagePatt)" width="100%" height="100%"/>
+                                <rect id="dmMap" fill="url(#dmMapImagePatt)" width="100%" height="100%"/>
                                 <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
                                 <rect id="fogOfWar" fill="#00ff00" width=100% height=100% mask="url(#fogMask)"/>
                             </svg>
@@ -55,9 +57,19 @@
                                     <div class="card">
                                         <div id="mapSetup" class="collapse show" data-parent="#accordion">
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <label for="mapImageSetting">Set map image</label>
-                                                    <input type="file" class="form-control-file" id="mapImageSetting">
+                                                <div class="form-row">
+                                                    <div class="form-group col">
+                                                        <label for="playerMapImageSetting">Set player map image</label>
+                                                        <input type="file" class="form-control-file" id="playerMapImageSetting">
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="dmMapImageSetting">Set DM map image</label>
+                                                        <input type="file" class="form-control-file" id="dmMapImageSetting">
+                                                    </div>
+                                                    <div class="form-group col">
+                                                        <label for="fogMapImageSetting">Set fog image</label>
+                                                        <input type="file" class="form-control-file" id="fogMapImageSetting">
+                                                    </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col">

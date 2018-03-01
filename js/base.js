@@ -1,4 +1,3 @@
-var canvasObjs = {};
 //========== Basic page JS ==========//
 $(document).ready(function() {
     // DM Menu
@@ -44,37 +43,56 @@ $(document).ready(function() {
 });
 
 //========== Map settings ==========//
-$('#mapImageSetting').change(function(){
-    var input = this;
+$('#playerMapImageSetting').change(function(){
+    loadImage(this);
+});// Player map setting changed
+$('#dmMapImageSetting').change(function(){
+    loadImage(this);
+});// DM map setting changed
+$('#fogMapImageSetting').change(function(){
+    loadImage(this);
+});// Fog map setting changed
+$('#gridSizeXSetting').change(function(){
+    setGridSizeX();
+});// Adjusted horizontal grid spaces
+$('#gridSizeYSetting').change(function(){
+    setGridSizeY();
+});// Adjusted vertical grid spaces
+$('#gridColorSetting').change(function(){
+    setGridColor($('#gridColorSetting').val());
+});// Adjusted grid color
+$('#gridThicknessSetting').change(function(){
+    setGridThickness($('#gridThicknessSetting').val());
+});// Adjusted grid line thickness
+
+function loadImage(mapTypeSetting){
+    var input = mapTypeSetting;
+    var mapType = $(mapTypeSetting).attr('id');
     if (input.files && input.files[0]) {
         var reader = new FileReader();
+        reader.mapType = mapType;
         reader.onload = function (e) {
-            var mapImage = new Image(); 
-            mapImage.onload = function(){
-                $('#mapImagePatt image').attr("xlink:href", mapImage.src);
-                $('#svgMap').attr('viewBox', '0,0,' + mapImage.width + ',' + mapImage.height);
-                setGridSizeX();
-                setGridSizeY();
-                setFogOfWar(mapImage.width, mapImage.height);
+            var loadedImage = new Image();
+            loadedImage.mapType = this.mapType;
+            loadedImage.onload = function(mapType){
+                switch(loadedImage.mapType){
+                    case "playerMapImageSetting":
+                        $('#playerMapImagePatt image').attr("xlink:href", loadedImage.src);
+                        $('#svgMap').attr('viewBox', '0,0,' + loadedImage.width + ',' + loadedImage.height);
+                        setGridSizeX();
+                        setGridSizeY();
+                        setFogOfWar(loadedImage.width, loadedImage.height);
+                        break;
+                    case "dmMapImageSetting":
+                        $('#dmMapImagePatt image').attr("xlink:href", loadedImage.src);
+                        break;
+                }
             };
-            mapImage.src = e.target.result; 
+            loadedImage.src = e.target.result; 
         }
         reader.readAsDataURL(input.files[0]);
     }    
-});// Upload new map image
-$('#gridSizeXSetting').change(function(){
-    setGridSizeX();
-});
-$('#gridSizeYSetting').change(function(){
-    setGridSizeY();
-});
-$('#gridColorSetting').change(function(){
-    setGridColor($('#gridColorSetting').val());
-});
-$('#gridThicknessSetting').change(function(){
-    setGridThickness($('#gridThicknessSetting').val());
-});
-
+}// Loading of images
 function setGridSizeX(){
     var gridSizeX = $('#gridSizeXSetting').val();
     if(gridSizeX < 1){gridSizeX = 1;}
