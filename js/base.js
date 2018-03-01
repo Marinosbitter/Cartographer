@@ -55,6 +55,7 @@ $('#mapImageSetting').change(function(){
                 $('#svgMap').attr('viewBox', '0,0,' + mapImage.width + ',' + mapImage.height);
                 setGridSizeX();
                 setGridSizeY();
+                setFogOfWar(mapImage.width, mapImage.height);
             };
             mapImage.src = e.target.result; 
         }
@@ -72,18 +73,6 @@ $('#gridColorSetting').change(function(){
 });
 $('#gridThicknessSetting').change(function(){
     setGridThickness($('#gridThicknessSetting').val());
-});
-$('#fogOfWarSetting').change(function(){
-    setfogOfWar($('#fogOfWarSetting').val());
-});
-$('#fogOfWarRegenSetting').click(function(){
-    setfogOfWar($('#fogOfWarSetting').val());
-});
-$('#confirmFogOfWarSetting').click(function(){
-    confFogOfWar($('#fogOfWarSetting').val());
-});
-$('#cancelFogOfWarSetting').click(function(){
-    $('#fogOfWarSetting').val($('#mapFog').attr('data-fogmode'));
 });
 
 function setGridSizeX(){
@@ -106,40 +95,27 @@ function setGridColor(color){
 function setGridThickness(thickness){
     $('#mapGridPatt rect').attr('stroke-width', thickness);
 }// Set grid thickness
-function setfogOfWar(fogMode){
-    $('#fowWarningModal').modal();
-}// Set fog of war
-function confFogOfWar(fogMode){
-    $('#mapFog').attr('data-fogmode', fogMode);
-    switch(fogMode){
-        case "none":
-            $('#mapFog').html("");
-            break;
-        case "grid":
-            var viewBoxSize = $('#svgMap').attr('viewBox');
-            var gridX = $('#gridSizeXSetting').val();
-            var gridY = $('#gridSizeYSetting').val();
-            viewBoxSize = viewBoxSize.split(",");
-            var viewBoxSizeX = viewBoxSize[2]
-            var viewBoxSizeY = viewBoxSize[3]
-            for(x = 0; x < gridX; x++){
-                for(y = 0; y < gridY; y++)
-                {
-                    var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'path'); //Create a path in SVG's namespace
-                    $(newElement).attr('d','M0 0 l100 0 l0 100 l-100 0 Z'); //Set path's data
-                    var d = 'M'+ parseFloat(x * viewBoxSizeX / gridX) + ' ' + parseFloat(y * viewBoxSizeY / gridY) +
-                        ' l'+parseFloat(viewBoxSizeX / gridX)+' 0 l0 '+parseFloat(viewBoxSizeY / gridY)+' l-'+parseFloat(viewBoxSizeX / gridX)+' 0 z';
-                    console.info(d);
-                    $(newElement).attr('d', d); //Set path's data
-                    $(newElement).attr('stroke-width', 5); //Set stroke
-                    $(newElement).attr('stroke', '#00ff00'); //Set stroke color
-                    $(newElement).attr('fill', 'rgba(0,0,0,0.5)'); //Set fill
-                    $('#mapFog').append(newElement);
-                }
-            }
-            break;
+function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
+    var c = document.getElementById('fogCanvas');
+    var ctx = c.getContext('2d');
+    $(c).attr('width', fogCanvasWidth);
+    $(c).attr('height', fogCanvasHeight);
+
+    var my_gradient=ctx.createLinearGradient(0,0,0,fogCanvasHeight);
+    my_gradient.addColorStop(0,"black");
+    my_gradient.addColorStop(1,"white");
+    ctx.fillStyle=my_gradient;
+    ctx.fillRect(0,0,fogCanvasWidth,fogCanvasHeight);
+
+    //Save canvas as image for use in mask
+    var fogImageData = c.toDataURL("image/png");
+    var fogImage = new Image();
+    fogImage.onload = function(){
+        $('#fogMask image').attr("xlink:href", fogImage.src);
     }
-}// Confirm and generate fog of war
+    fogImage.src = fogImageData;
+
+}// Set fog of war
 
 //========== Tab Sync ==========//
 // Connection to a broadcast channel

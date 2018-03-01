@@ -5,7 +5,7 @@
         <title>title</title>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="/css/jquery.mmenu.all.css">
+        <link rel="stylesheet" href="css/jquery.mmenu.all.css">
         <link href="css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
@@ -29,12 +29,15 @@
                                     <pattern id="mapGridPatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
                                         <rect width="100%" height="100%" fill="rgba(0,0,0,0)" stroke-width=5 stroke="#000000" />
                                     </pattern>
+                                    <mask id="fogMask">
+                                        <image xlink:href="" x="0" y="0" width="100%" height="100%" />                                        
+                                    </mask>
                                 </defs>
-
                                 <rect id="mapBase" fill="url(#mapImagePatt)" width="100%" height="100%"/>
                                 <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
-                                <g id="mapFog" data-fogmode="none"></g>
+                                <rect id="fogOfWar" fill="#00ff00" width=100% height=100% mask="url(#fogMask)"/>
                             </svg>
+                            <canvas id="fogCanvas"></canvas>
                         </div>
                     </div>
                     <div class="col">
@@ -80,15 +83,9 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col">
-                                                        <label for="fogOfWarSetting">Fog of war mode</label>
-                                                        <select class="form-control" id="fogOfWarSetting">
-                                                            <option value="none">No fog of war</option>
-                                                            <option value="grid">Grid based fog of war</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-groep col">
-                                                        <label for="fogOfWarRegenSetting">Fog of war mode</label><br>
-                                                        <input type="button" class="btn btn-primary" id="fogOfWarRegenSetting" value="Regenerate fog of war">
+                                                        <label for="fogColorSetting">Fog color</label>
+                                                        <input type="color" class="form-control" id="fogColorSetting" aria-describedby="fogColorSettingHelp" placeholder="#804000">
+                                                        <small id="fogColorSettingHelp" class="form-text text-muted">Set fog of war color</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,7 +94,12 @@
                                     <div class="card">
                                         <div id="playMode" class="collapse" data-parent="#accordion">
                                             <div class="card-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                <h2>Controls</h2>
+                                                <div class="btn-group" role="group" aria-label="Play tools" id="toolButtons">
+                                                    <button type="button" class="btn btn-secondary">Add fog</button>
+                                                    <button type="button" class="btn btn-secondary">Substract fog</button>
+                                                    <button type="button" class="btn btn-secondary">Right</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -144,7 +146,7 @@
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-        <script src="/js/jquery.mmenu.all.js"></script>
+        <script src="js/jquery.mmenu.all.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 

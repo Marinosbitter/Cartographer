@@ -4,7 +4,15 @@
 #mapContainer {
     max-width: 100vw;
     max-height: 100vh;
+    position: relative;
 }
-#gridColorSetting {
+input[type="color"] {
     min-height: 2.4rem;
+}
+#fogCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display:none;
 }
