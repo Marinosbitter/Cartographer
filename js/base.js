@@ -108,8 +108,12 @@ function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
     ctx.fillRect(0,0,fogCanvasWidth,fogCanvasHeight);
 
     //Save canvas as image for use in mask
-    var fogImage = c.toDataURL("image/png");
-    $('#fogMask image').attr("xlink:href", fogImage);
+    var fogImageData = c.toDataURL("image/png");
+    var fogImage = new Image();
+    fogImage.onload = function(){
+        $('#fogMask image').attr("xlink:href", fogImage.src);
+    }
+    fogImage.src = fogImageData;
 
 }// Set fog of war
 
