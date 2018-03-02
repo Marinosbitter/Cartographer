@@ -1,3 +1,4 @@
+
 //========== Basic page JS ==========//
 $(document).ready(function() {
     // DM Menu
@@ -64,6 +65,9 @@ $('#gridColorSetting').change(function(){
 $('#gridThicknessSetting').change(function(){
     setGridThickness($('#gridThicknessSetting').val());
 });// Adjusted grid line thickness
+$('input[name=fogFillSetting]').change(function(){
+   setFogFill($('input[name=fogFillSetting]:checked').val());
+});
 
 function loadImage(mapTypeSetting){
     var input = mapTypeSetting;
@@ -137,6 +141,16 @@ function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
     fogImage.src = fogImageData;
 
 }// Set fog of war
+function setFogFill(fogFillType){
+    switch(fogFillType){
+        case "color":
+            $('#fogOfWar').attr("fill", $('#fogColorSetting').val());
+            break;
+        case "image":
+            $('#fogOfWar').attr("fill", "url(#fogMapImagePatt)");
+            break;
+    }
+}// Set fog of war filltype
 
 //========== Tab Sync ==========//
 // Connection to a broadcast channel

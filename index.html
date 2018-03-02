@@ -51,94 +51,74 @@
                                 <rect id="playerMap" fill="url(#playerMapImagePatt)" width="100%" height="100%"/>
                                 <rect id="dmMap" fill="url(#dmMapImagePatt)" width="100%" height="100%" mask="url(#dmMask)"/>
                                 <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
-                                <!--                                <rect id="fogOfWar" fill="#00ff00" width=100% height=100% mask="url(#fogMask)"/>-->
+                                <rect id="fogOfWar" fill="" width=100% height=100% mask="url(#fogMask)"/>
                             </svg>
                             <canvas id="dmCanvas"></canvas>
                             <canvas id="fogCanvas"></canvas>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="row">
-                            <button class="btn btn-primary" data-toggle="collapse" data-target="#mapSetup" aria-expanded="true" aria-controls="mapSetup">
-                                Map Setup
-                            </button>
-                            <button class="btn btn-primary collapsed" data-toggle="collapse" data-target="#playMode" aria-expanded="false" aria-controls="playMode">
-                                Playing
-                            </button>
-                        </div>
-                        <div class="row">
-                            <div classs="col">
-                                <div id="accordion">
-                                    <div class="card">
-                                        <div id="mapSetup" class="collapse show" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <div class="custom-file">
-                                                            <input type="file" class="form-control-file" id="playerMapImageSetting">
-                                                            <label for="playerMapImageSetting">Set player map image</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <div class="custom-file">
-                                                            <input type="file" class="form-control-file" id="dmMapImageSetting">
-                                                            <label for="dmMapImageSetting">Set DM map image</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <div class="custom-file">
-                                                            <input type="file" class="form-control-file" id="fogMapImageSetting">
-                                                            <label for="fogMapImageSetting">Set fog image</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <label for="gridSizeXSetting">Grid spaces (Horizontal)</label>
-                                                        <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="1">
-                                                        <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter horizontal number of grid spaces</small>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="gridSizeYSetting">Grid spaces (Vertical)</label>
-                                                        <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="1">
-                                                        <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter vertical nunmber of grid spaces</small>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="gridColorSetting">Grid color</label>
-                                                        <input type="color" class="form-control" id="gridColorSetting" aria-describedby="gridColorSettingHelp" placeholder="#000000">
-                                                        <small id="gridColorSettingHelp" class="form-text text-muted">Hex color of grid</small>
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="gridThicknessSetting">Grid thickness</label>
-                                                        <input type="number" class="form-control" id="gridThicknessSetting" aria-describedby="gridThicknessSettingHelp" placeholder="5">
-                                                        <small id="gridThicknessSettingHelp" class="form-text text-muted">Thickness of grid,<i> in px on map</i></small>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="form-group col">
-                                                        <label for="fogColorSetting">Fog color</label>
-                                                        <input type="color" class="form-control" id="fogColorSetting" aria-describedby="fogColorSettingHelp" placeholder="#804000">
-                                                        <small id="fogColorSettingHelp" class="form-text text-muted">Set fog of war color</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div id="playMode" class="collapse" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <h2>Controls</h2>
-                                                <div class="btn-group" role="group" aria-label="modeSettingLabel" id="modeSetting">
-                                                    <button type="button" class="btn btn-secondary">Add fog</button>
-                                                    <button type="button" class="btn btn-secondary">Substract fog</button>
-                                                    <button type="button" class="btn btn-secondary">Right</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <h2>Map controls</h2>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <div class="custom-file">
+                                    <input type="file" class="form-control-file" id="playerMapImageSetting">
+                                    <label for="playerMapImageSetting">Set player map image</label>
                                 </div>
                             </div>
-                        </div>
+                            <div class="form-group col">
+                                <div class="custom-file">
+                                    <input type="file" class="form-control-file" id="dmMapImageSetting">
+                                    <label for="dmMapImageSetting">Set DM map image</label>
+                                </div>
+                            </div>
+                            <div class="form-group col">
+                                <div class="custom-file">
+                                    <input type="file" class="form-control-file" id="fogMapImageSetting">
+                                    <label for="fogMapImageSetting">Set fog image</label>
+                                </div>
+                            </div>
+                        </div><!-- Upload maps images -->
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="gridSizeXSetting">Grid spaces (Horizontal)</label>
+                                <input type="number" class="form-control" id="gridSizeXSetting" aria-describedby="gridSizeXSettingHelp" placeholder="1">
+                                <small id="gridSizeXSettingHelp" class="form-text text-muted">Enter horizontal number of grid spaces</small>
+                            </div>
+                            <div class="form-group col">
+                                <label for="gridSizeYSetting">Grid spaces (Vertical)</label>
+                                <input type="number" class="form-control" id="gridSizeYSetting" aria-describedby="gridSizeYSettingHelp" placeholder="1">
+                                <small id="gridSizeYSettingHelp" class="form-text text-muted">Enter vertical nunmber of grid spaces</small>
+                            </div>
+                            <div class="form-group col">
+                                <label for="gridColorSetting">Grid color</label>
+                                <input type="color" class="form-control" id="gridColorSetting" aria-describedby="gridColorSettingHelp" placeholder="#000000">
+                                <small id="gridColorSettingHelp" class="form-text text-muted">Hex color of grid</small>
+                            </div>
+                            <div class="form-group col">
+                                <label for="gridThicknessSetting">Grid thickness</label>
+                                <input type="number" class="form-control" id="gridThicknessSetting" aria-describedby="gridThicknessSettingHelp" placeholder="5">
+                                <small id="gridThicknessSettingHelp" class="form-text text-muted">Thickness of grid,<i> in px on map</i></small>
+                            </div>
+                        </div><!-- Grid settings -->
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <label for="fogColorSetting">Fog color</label>
+                                <input type="color" class="form-control" id="fogColorSetting" aria-describedby="fogColorSettingHelp" placeholder="#804000">
+                                <small id="fogColorSettingHelp" class="form-text text-muted">Set fog of war color</small>
+                            </div>
+                            <div class="form-group col">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="fogFillSettingColor" name="fogFillSetting" class="custom-control-input" value="color">
+                                    <label class="custom-control-label" for="fogFillSettingColor">Color</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="fogFillSettingImage" name="fogFillSetting" class="custom-control-input" value="image">
+                                    <label class="custom-control-label" for="fogFillSettingImage">Image</label>
+                                </div>
+                            </div>
+                        </div><!-- Fog settings -->
+                        <h2>Fog controls</h2>
                     </div>
                 </div>
             </div>
