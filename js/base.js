@@ -1,4 +1,3 @@
-
 //========== Basic page JS ==========//
 $(document).ready(function() {
     // DM Menu
@@ -66,7 +65,14 @@ $('#gridThicknessSetting').change(function(){
     setGridThickness($('#gridThicknessSetting').val());
 });// Adjusted grid line thickness
 $('input[name=fogFillSetting]').change(function(){
-   setFogFill($('input[name=fogFillSetting]:checked').val());
+    setFogFill($('input[name=fogFillSetting]:checked').val());
+});
+
+//========== Drawing listeners ==========//
+$('#fogCanvas').mousedown(function(event){
+    $('#fogCanvas').mousemove(function(eventx){
+        console.info(eventx); 
+    });
 });
 
 function loadImage(mapTypeSetting){
@@ -85,6 +91,7 @@ function loadImage(mapTypeSetting){
                         $('#svgMap').attr('viewBox', '0,0,' + loadedImage.width + ',' + loadedImage.height);
                         setGridSizeX();
                         setGridSizeY();
+                        setCanvasSizes();
                         setFogOfWar(loadedImage.width, loadedImage.height);
                         break;
                     case "dmMapImageSetting":
@@ -120,6 +127,9 @@ function setGridColor(color){
 function setGridThickness(thickness){
     $('#mapGridPatt rect').attr('stroke-width', thickness);
 }// Set grid thickness
+function setCanvasSizes(){
+    $('#fogCanvas').
+}
 function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
     var c = document.getElementById('fogCanvas');
     var ctx = c.getContext('2d');
@@ -148,6 +158,9 @@ function setFogFill(fogFillType){
             break;
         case "image":
             $('#fogOfWar').attr("fill", "url(#fogMapImagePatt)");
+            break;
+        case "none":
+            $('#fogOfWar').attr("fill", "rgba(0,0,0,0)");
             break;
     }
 }// Set fog of war filltype

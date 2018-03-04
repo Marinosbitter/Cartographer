@@ -33,10 +33,10 @@
                                         <image xlink:href="" x="0" y="0" width="100%" height="100%" />
                                     </pattern>
                                     <pattern id="dmMapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
-                                        <image xlink:href="" x="0" y="0" width="100%" height="100%" />
+                                        <image xlink:href="" x="0" y="0" width="1" height="1" />
                                     </pattern>
-                                    <pattern id="fogMapImagePatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
-                                        <image xlink:href="" x="0" y="0" width="100%" height="100%" />
+                                    <pattern id="fogMapImagePatt" patternContentUnits="objectBoundingBox" width="100%" height="100%">
+                                        <image xlink:href="" x="0" y="0" width="1" height="1" />
                                     </pattern>
                                     <pattern id="mapGridPatt" patternUnits="userSpaceOnUse" width="100%" height="100%">
                                         <rect width="100%" height="100%" fill="rgba(0,0,0,0)" stroke-width=5 stroke="#000000" />
@@ -51,7 +51,7 @@
                                 <rect id="playerMap" fill="url(#playerMapImagePatt)" width="100%" height="100%"/>
                                 <rect id="dmMap" fill="url(#dmMapImagePatt)" width="100%" height="100%" mask="url(#dmMask)"/>
                                 <rect id="mapGrid" fill="url(#mapGridPatt)" width="100%" height="100%"/>
-                                <rect id="fogOfWar" fill="" width=100% height=100% mask="url(#fogMask)"/>
+                                <rect id="fogOfWar" fill="rgba(0,0,0,0)" width=100% height=100% mask="url(#fogMask)"/>
                             </svg>
                             <canvas id="dmCanvas"></canvas>
                             <canvas id="fogCanvas"></canvas>
@@ -70,12 +70,6 @@
                                 <div class="custom-file">
                                     <input type="file" class="form-control-file" id="dmMapImageSetting">
                                     <label for="dmMapImageSetting">Set DM map image</label>
-                                </div>
-                            </div>
-                            <div class="form-group col">
-                                <div class="custom-file">
-                                    <input type="file" class="form-control-file" id="fogMapImageSetting">
-                                    <label for="fogMapImageSetting">Set fog image</label>
                                 </div>
                             </div>
                         </div><!-- Upload maps images -->
@@ -101,11 +95,18 @@
                                 <small id="gridThicknessSettingHelp" class="form-text text-muted">Thickness of grid,<i> in px on map</i></small>
                             </div>
                         </div><!-- Grid settings -->
+                        <h2>Fog controls</h2>
                         <div class="form-row">
                             <div class="form-group col">
                                 <label for="fogColorSetting">Fog color</label>
                                 <input type="color" class="form-control" id="fogColorSetting" aria-describedby="fogColorSettingHelp" placeholder="#804000">
                                 <small id="fogColorSettingHelp" class="form-text text-muted">Set fog of war color</small>
+                            </div>
+                            <div class="form-group col">
+                                <div class="custom-file">
+                                    <input type="file" class="form-control-file" id="fogMapImageSetting">
+                                    <label for="fogMapImageSetting">Set fog image</label>
+                                </div>
                             </div>
                             <div class="form-group col">
                                 <div class="custom-control custom-radio">
@@ -116,9 +117,23 @@
                                     <input type="radio" id="fogFillSettingImage" name="fogFillSetting" class="custom-control-input" value="image">
                                     <label class="custom-control-label" for="fogFillSettingImage">Image</label>
                                 </div>
-                            </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="fogFillSettingNone" name="fogFillSetting" class="custom-control-input" value="none">
+                                    <label class="custom-control-label" for="fogFillSettingNone">No Fog of War</label>
+                                </div>
+                            </div><!-- Select to use image or color -->
                         </div><!-- Fog settings -->
-                        <h2>Fog controls</h2>
+                        <h2>Paint tools</h2>
+                        <div class="form-group col">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="paintLayerSelectSettingDM" name="paintLayerSelectSetting" class="custom-control-input" value="dm">
+                                <label class="custom-control-label" for="paintLayerSelectSettingDM">DM</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="paintLayerSelectSettingFog" name="paintLayerSelectSetting" class="custom-control-input" value="fog">
+                                <label class="custom-control-label" for="paintLayerSelectSettingFog">Fog of war</label>
+                            </div>
+                        </div><!-- select layer -->
                     </div>
                 </div>
             </div>
