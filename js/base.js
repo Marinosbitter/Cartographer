@@ -67,14 +67,61 @@ $('#gridThicknessSetting').change(function(){
 $('input[name=fogFillSetting]').change(function(){
     setFogFill($('input[name=fogFillSetting]:checked').val());
 });
-
-//========== Drawing listeners ==========//
-$('#fogCanvas').mousedown(function(event){
-    $('#fogCanvas').mousemove(function(eventx){
-        console.info(eventx); 
-    });
+$('#maskFillTool').click(function(){
+    fillMask();
 });
+$('#maskEraseTool').click(function(){
+    eraseMask();
+});
+//========== Drawing listeners ==========//
+//$('#fogCanvas').mousedown(function(event){
+//    $('#fogCanvas').mousemove(function(eventx){
+//        console.info(eventx); 
+//    });
+//});
+//========== Canvas functions ==========//
+function fillMask(){
+    var activeCanvas = getActiveCanvas();
+    activeCanvas.context.fillStyle="#ffffff";
+    activeCanvas.context.fillRect(0,0,500,500);
+    saveCanvasImage(activeCanvas);
+}
+function eraseMask(){
+    var activeCanvas = getActiveCanvas();
+    activeCanvas.context.fillStyle="#000000";
+    activeCanvas.context.fillRect(0,0,500,500);
+    saveCanvasImage(activeCanvas);
+}
+//    $(c).attr('width', fogCanvasWidth);
+//    $(c).attr('height', fogCanvasHeight);
+//
+//    var my_gradient=ctx.createLinearGradient(0,0,0,fogCanvasHeight);
+//    my_gradient.addColorStop(0,"black");
+//    my_gradient.addColorStop(1,"white");
+//    ctx.fillStyle=my_gradient;
+//    ctx.fillRect(0,0,fogCanvasWidth,fogCanvasHeight);
 
+function getActiveCanvas(){
+    switch($('input[name=paintLayerSelectSetting]:checked').val()){
+        case "fog":
+            var c = document.getElementById('fogCanvas');
+            var ctx = c.getContext('2d');
+            var maskID = "fogMapImagePatt";
+            break;
+        case "dm":
+            var c = document.getElementById('dmCanvas');
+            var ctx = c.getContext('2d');
+            var maskID = "dmMapImagePatt";
+            break;
+    }
+    paintCanvas = {
+        "element":c,
+        "context":ctx,
+        "maskID":maskID
+    };
+    return paintCanvas;
+}
+//========== Settings functions ==========//
 function loadImage(mapTypeSetting){
     var input = mapTypeSetting;
     var mapType = $(mapTypeSetting).attr('id');
@@ -91,8 +138,7 @@ function loadImage(mapTypeSetting){
                         $('#svgMap').attr('viewBox', '0,0,' + loadedImage.width + ',' + loadedImage.height);
                         setGridSizeX();
                         setGridSizeY();
-                        setCanvasSizes();
-                        setFogOfWar(loadedImage.width, loadedImage.height);
+                        setCanvasSizes(loadedImage.width, loadedImage.height);
                         break;
                     case "dmMapImageSetting":
                         $('#dmMapImagePatt image').attr("xlink:href", loadedImage.src);
@@ -127,28 +173,22 @@ function setGridColor(color){
 function setGridThickness(thickness){
     $('#mapGridPatt rect').attr('stroke-width', thickness);
 }// Set grid thickness
-function setCanvasSizes(){
-    $('#fogCanvas').
+function setCanvasSizes(canvasWidth, canvasHeight){
+    $('#fogCanvas').attr('width', canvasWidth);
+    $('#fogCanvas').attr('height', canvasHeight);
+    $('#dmCanvas').attr('width', canvasWidth);
+    $('#dmCanvas').attr('height', canvasHeight);
 }
-function setFogOfWar(fogCanvasWidth, fogCanvasHeight){
-    var c = document.getElementById('fogCanvas');
-    var ctx = c.getContext('2d');
-    $(c).attr('width', fogCanvasWidth);
-    $(c).attr('height', fogCanvasHeight);
-
-    var my_gradient=ctx.createLinearGradient(0,0,0,fogCanvasHeight);
-    my_gradient.addColorStop(0,"black");
-    my_gradient.addColorStop(1,"white");
-    ctx.fillStyle=my_gradient;
-    ctx.fillRect(0,0,fogCanvasWidth,fogCanvasHeight);
-
+function saveCanvasImage(activeCanvas){
     //Save canvas as image for use in mask
-    var fogImageData = c.toDataURL("image/png");
-    var fogImage = new Image();
-    fogImage.onload = function(){
-        $('#fogMask image').attr("xlink:href", fogImage.src);
+    var canvasImageData = activeCanvas.element.toDataURL("image/png");
+    var canvasImage = new Image();
+    canvasImage.targetMask = activeCanvas.maskID;
+    canvasImage.src = canvasImageData;
+    canvasImage.onload = function(){
+        console.info($("#" + canvasImage.targetMask + " image"));
+        $("#" + canvasImage.targetMask + " image").attr("xlink:href", canvasImage.src);
     }
-    fogImage.src = fogImageData;
 
 }// Set fog of war
 function setFogFill(fogFillType){
